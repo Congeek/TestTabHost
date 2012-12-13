@@ -18,6 +18,7 @@ import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -89,29 +90,7 @@ public class ViewPagerActivity extends Activity {
 		tabHost.addTab(tabHost.newTabSpec("B").setIndicator(tabIndicator2).setContent(intent));
 		tabHost.addTab(tabHost.newTabSpec("C").setIndicator(tabIndicator3).setContent(intent));
 		
-		//点击tabhost中的tab时，要切换下面的viewPager
-		tabHost.setOnTabChangedListener(new OnTabChangeListener() {
-			@Override
-			public void onTabChanged(String tabId) {
-				 tabHost.setOnTabChangedListener(new OnTabChangeListener() {
-			            @Override
-			            public void onTabChanged(String tabId) {
-			                if ("A".equals(tabId)) {
-			                    pager.setCurrentItem(0);
-			                } 
-			                if ("B".equals(tabId)) {
-			                    pager.setCurrentItem(1);
-			                } 
-			                if ("C".equals(tabId)) {
-			                    pager.setCurrentItem(2);
-			                } 
-			            }
-			        });
-				
-			}
-		});
 		
-
 		pager .setAdapter(new MyPageAdapter(listViews));
 		pager .setOnPageChangeListener(new OnPageChangeListener() {
 			@Override
@@ -126,8 +105,28 @@ public class ViewPagerActivity extends Activity {
 			public void onPageScrollStateChanged(int arg0) {
 			}
 		});
+		
+		
+	 //点击tabhost中的tab时，要切换下面的viewPager
+	 tabHost.setOnTabChangedListener(new OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+            	
+            	if ("A".equals(tabId)) {
+                    pager.setCurrentItem(0);
+                } 
+                if ("B".equals(tabId)) {
+                	
+                    pager.setCurrentItem(1);
+                } 
+                if ("C".equals(tabId)) {
+                    pager.setCurrentItem(2);
+                } 
+            }
+        });
 	
-
+		
+		
 	}
 
 	private View getView(String id, Intent intent) {
